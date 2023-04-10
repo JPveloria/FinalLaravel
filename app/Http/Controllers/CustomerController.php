@@ -48,14 +48,18 @@ class CustomerController extends Controller
 
     public function saveCustomer(Request $req){
         $validated=$req->validate([
-            "lastName"=>['required' , 'min:4'],
-            "firstName"=>['required' , 'min:4'],
+            "lastName"=>['required' , 'min:1'],
+            "firstName"=>['required' , 'min:1'],
             "email"=>['required','email', Rule::unique('users','email')],
-            "contactNumber"=>['required','min:11'],
-            "address"=> ['required' , 'min:4']
+            "contactNumber"=>['required','min:1'],
+            "address"=> ['required' , 'min:1']
         ]);
         $data=Customer::create($validated);
         return redirect("/")->with('success2', 'Customer added successfully.');
 
+    }
+
+    public function addCustomer(){
+        return view('customer.add');
     }
 }
